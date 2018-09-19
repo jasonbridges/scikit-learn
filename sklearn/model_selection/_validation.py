@@ -1250,7 +1250,7 @@ def learning_curve(estimator, X, y, groups=None,
 
     out = np.asarray(out).transpose((2, 1, 0))
 
-    return train_sizes_abs, out[0], out[1]
+    return train_sizes_abs, out[0], out[1], out[3], out[4]
 
 
 def _translate_train_sizes(train_sizes, n_max_training_samples):
