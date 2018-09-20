@@ -1242,15 +1242,19 @@ def learning_curve(estimator, X, y, groups=None,
         out = parallel(delayed(_fit_and_score)(
             clone(estimator), X, y, scorer, train, test, verbose,
             parameters=None, fit_params=None, return_train_score=True,
-            error_score=error_score)
+            error_score=error_score, return_times=True )
             for train, test in train_test_proportions)
+        
+        #print(out)
         out = np.array(out)
         n_cv_folds = out.shape[0] // n_unique_ticks
-        out = out.reshape(n_cv_folds, n_unique_ticks, 2)
+        out = out.reshape(n_cv_folds, n_unique_ticks, 4)
 
     out = np.asarray(out).transpose((2, 1, 0))
 
-    return train_sizes_abs, out[0], out[1], out[3], out[4]
+    #print(out)
+
+    return train_sizes_abs, out[0], out[1], out[2], out[3]
 
 
 def _translate_train_sizes(train_sizes, n_max_training_samples):
